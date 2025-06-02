@@ -20,12 +20,12 @@ A modern implementation of Blackjack built with React, TypeScript, and Vite.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/react-blackjack.git
+git clone https://github.com/yourusername/BlackJack-SP.git
 ```
 
 2. Install dependencies:
 ```bash
-cd react-blackjack
+cd BlackJack-SP
 npm install
 ```
 
