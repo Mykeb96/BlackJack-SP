@@ -25,9 +25,12 @@ export class Game {
         this.player.hand = [];
         this.dealer.hand = [];
 
-        this.dealer.dealHandTo(this.player, 2);
-        this.dealer.dealHandTo(this.dealer, 2);
-        
+        // Casino order: player, dealer, player, dealer
+        this.dealer.dealCardTo(this.player);
+        this.dealer.dealCardTo(this.dealer);
+        this.dealer.dealCardTo(this.player);
+        this.dealer.dealCardTo(this.dealer);
+
         this.status = 'playerTurn';
     }
 

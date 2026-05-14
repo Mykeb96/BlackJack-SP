@@ -1,5 +1,30 @@
 import type { Card } from "./Deck";
 
+export function blackjackScore(hand: Card[]): number {
+    let score = 0;
+    let aces = 0;
+
+    for (const card of hand) {
+        if (card.rank === 'A') {
+            aces += 1;
+        } else if (['K', 'Q', 'J'].includes(card.rank)) {
+            score += 10;
+        } else {
+            score += parseInt(card.rank, 10);
+        }
+    }
+
+    for (let i = 0; i < aces; i++) {
+        if (score + 11 <= 21) {
+            score += 11;
+        } else {
+            score += 1;
+        }
+    }
+
+    return score;
+}
+
 export class Player {
     public name: string;
     public hand: Card[];
@@ -13,12 +38,10 @@ export class Player {
 
     receiveCard(card: Card): void {
         this.hand.push(card);
-        this.calculateScore();
     }
 
     receiveHand(cards: Card[]): void {
         this.hand.push(...cards);
-        this.calculateScore();
     }
 
     placeBet(amount: number): void {
@@ -33,34 +56,7 @@ export class Player {
         this.chips += amount;
     }
     
-    private calculateScore(): number {
-        let score = 0;
-        let aces = 0;
-
-        // First count non-aces
-        for (const card of this.hand) {
-            if (card.rank === 'A') {
-                aces += 1;
-            } else if (['K', 'Q', 'J'].includes(card.rank)) {
-                score += 10;
-            } else {
-                score += parseInt(card.rank);
-            }
-        }
-
-        // Then handle aces
-        for (let i = 0; i < aces; i++) {
-            if (score + 11 <= 21) {
-                score += 11;
-            } else {
-                score += 1;
-            }
-        }
-
-        return score;
-    }
-
     get score(): number {
-        return this.calculateScore();
+        return blackjackScore(this.hand);
     }
 }
